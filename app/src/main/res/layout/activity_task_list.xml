@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/timer_time"
+        android:id="@+id/hello"
         android:text="hello world!"
         android:textSize="50sp"
         android:fontFamily="sans-serif-medium"
