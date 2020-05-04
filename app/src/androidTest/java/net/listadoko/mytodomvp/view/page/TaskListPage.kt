@@ -9,7 +9,7 @@ import org.hamcrest.Matchers.allOf
 
 class TaskListPage {
     fun assertHelloWorld(text: String): TaskListPage {
-        val textView = onView(allOf(ViewMatchers.withId(R.id.hello), ViewMatchers.isDisplayed()))
+        val textView = onView(allOf(ViewMatchers.withId(R.id.all_todo_text), ViewMatchers.isDisplayed()))
         textView.check(matches(ViewMatchers.withText(Matchers.equalTo(text))))
         return this
     }

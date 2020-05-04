@@ -19,6 +19,6 @@ class TaskListActivityTest {
 
     @Test
     fun taskListActivityTest() {
-        TaskListPage().assertHelloWorld("hello world!")
+        TaskListPage().assertHelloWorld("All TO-DOs")
     }
 }
