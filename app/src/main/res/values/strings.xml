@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyTodoMvp</string>
+    <string name="list_title">TO-DOリスト</string>
+    <string name="statistics_title">統計</string>
 </resources>
