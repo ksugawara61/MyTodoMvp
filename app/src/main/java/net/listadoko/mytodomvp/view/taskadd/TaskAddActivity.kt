@@ -1,8 +1,8 @@
-package net.listadoko.mytodomvp.view
+package net.listadoko.mytodomvp.view.taskadd
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import net.listadoko.mytodomvp.R
+import net.listadoko.mytodomvp.view.BaseActivity
 
 class TaskAddActivity : BaseActivity() {
 

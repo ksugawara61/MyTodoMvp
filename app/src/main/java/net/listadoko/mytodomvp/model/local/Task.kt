@@ -1,4 +1,4 @@
-package net.listadoko.mytodomvp.model
+package net.listadoko.mytodomvp.model.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

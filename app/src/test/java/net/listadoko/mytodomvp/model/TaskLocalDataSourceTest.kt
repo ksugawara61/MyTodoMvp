@@ -2,6 +2,8 @@ package net.listadoko.mytodomvp.model
 
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
+import net.listadoko.mytodomvp.model.local.AppDatabase
+import net.listadoko.mytodomvp.model.local.Task
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -32,7 +34,10 @@ class TaskLocalDataSourceTest {
     class BlankRecord: DBTest() {
         @Test
         fun insert_finishesSuccessfully() {
-            val task = Task(title = "purchase tomato", description = "purchase tomato")
+            val task = Task(
+                title = "purchase tomato",
+                description = "purchase tomato"
+            )
             taskLocalDataSource.insert(task)
             val list = taskLocalDataSource.findAll()
             assertThat(list).hasSize(1)
@@ -49,7 +54,10 @@ class TaskLocalDataSourceTest {
     class RecordPrepared: DBTest() {
         @Before
         fun setUp() {
-            val task = Task(title = "purchase tomato", description = "purchase tomato")
+            val task = Task(
+                title = "purchase tomato",
+                description = "purchase tomato"
+            )
             taskLocalDataSource.insert(task)
         }
 

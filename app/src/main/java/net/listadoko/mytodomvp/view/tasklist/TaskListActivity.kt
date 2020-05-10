@@ -1,16 +1,23 @@
-package net.listadoko.mytodomvp.view
+package net.listadoko.mytodomvp.view.tasklist
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import net.listadoko.mytodomvp.util.Injection
 import net.listadoko.mytodomvp.R
+import net.listadoko.mytodomvp.model.local.Task
+import net.listadoko.mytodomvp.presentation.tasklist.TaskListContract
+import net.listadoko.mytodomvp.presentation.tasklist.TaskListPresenter
+import net.listadoko.mytodomvp.view.BaseActivity
+import net.listadoko.mytodomvp.view.taskadd.TaskAddActivity
 
-class TaskListActivity : BaseActivity() {
+class TaskListActivity : BaseActivity(), TaskListContract.View {
+
+    override lateinit var presenter: TaskListContract.Presenter
 
     private lateinit var drawerLayout: DrawerLayout
 
@@ -29,6 +36,13 @@ class TaskListActivity : BaseActivity() {
         setupDrawerContent(findViewById(R.id.nav_view))
 
         setupFabContent(findViewById(R.id.fab_add_task))
+
+        presenter =
+            TaskListPresenter(
+                Injection.provideTaskListRepository(applicationContext),
+                this
+            )
+        presenter.start()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -37,6 +51,10 @@ class TaskListActivity : BaseActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun showTaskList(taskList: List<Task>) {
+        // TODO("show Task list in view")
     }
 
     private fun setupDrawerContent(navigationView: NavigationView) {

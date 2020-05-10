@@ -6,8 +6,8 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import net.listadoko.mytodomvp.R
 import net.listadoko.mytodomvp.view.page.TaskListPage
+import net.listadoko.mytodomvp.view.tasklist.TaskListActivity
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
