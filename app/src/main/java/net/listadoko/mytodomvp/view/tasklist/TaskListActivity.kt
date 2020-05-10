@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import net.listadoko.mytodomvp.util.Injection
@@ -20,6 +22,7 @@ class TaskListActivity : BaseActivity(), TaskListContract.View {
     override lateinit var presenter: TaskListContract.Presenter
 
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var recyclerAdapter: TaskRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,13 @@ class TaskListActivity : BaseActivity(), TaskListContract.View {
 
         setupFabContent(findViewById(R.id.fab_add_task))
 
+        findViewById<RecyclerView>(R.id.task_list_recycler_view).apply {
+            recyclerAdapter = TaskRecyclerAdapter(context)
+            this.layoutManager = LinearLayoutManager(context)
+            this.adapter = recyclerAdapter
+        }
+
+        // setup presenter
         presenter =
             TaskListPresenter(
                 Injection.provideTaskListRepository(applicationContext),
@@ -54,7 +64,7 @@ class TaskListActivity : BaseActivity(), TaskListContract.View {
     }
 
     override fun showTaskList(taskList: List<Task>) {
-        // TODO("show Task list in view")
+        recyclerAdapter.updateItemList(taskList)
     }
 
     private fun setupDrawerContent(navigationView: NavigationView) {

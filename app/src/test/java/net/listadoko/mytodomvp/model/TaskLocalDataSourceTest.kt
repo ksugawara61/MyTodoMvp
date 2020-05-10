@@ -4,6 +4,7 @@ import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import net.listadoko.mytodomvp.model.local.AppDatabase
 import net.listadoko.mytodomvp.model.local.Task
+import net.listadoko.mytodomvp.util.AppExecutors
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -20,10 +21,10 @@ class TaskLocalDataSourceTest {
         @Before
         fun setUpParent() {
             val context = InstrumentationRegistry.getInstrumentation().targetContext
-            val db = Room.databaseBuilder(context, AppDatabase::class.java, "DB")
+            val db = Room.databaseBuilder(context, AppDatabase::class.java, "TasksUT.db")
                 .allowMainThreadQueries()
                 .build()
-            taskLocalDataSource = TaskLocalDataSource(db)
+            taskLocalDataSource = TaskLocalDataSource(AppExecutors(), db)
         }
 
         @After
