@@ -49,7 +49,7 @@ class TaskListActivityTest {
     @After
     @Throws(IOException::class)
     fun tearDown() {
-        db.clearAllTables()
+//        db.clearAllTables()
         db.close()
     }
 

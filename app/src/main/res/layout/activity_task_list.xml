@@ -60,7 +60,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         tools:itemCount="20"
-                        tools:listitem="@layout/adapter_todo"
+                        tools:listitem="@layout/adapter_task"
                         />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
