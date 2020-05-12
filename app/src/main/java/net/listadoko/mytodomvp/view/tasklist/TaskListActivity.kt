@@ -16,6 +16,7 @@ import net.listadoko.mytodomvp.presentation.tasklist.TaskListContract
 import net.listadoko.mytodomvp.presentation.tasklist.TaskListPresenter
 import net.listadoko.mytodomvp.view.BaseActivity
 import net.listadoko.mytodomvp.view.taskadd.TaskAddActivity
+import net.listadoko.mytodomvp.view.taskdetail.TaskDetailActivity
 
 class TaskListActivity : BaseActivity(), TaskListContract.View {
 
@@ -23,6 +24,11 @@ class TaskListActivity : BaseActivity(), TaskListContract.View {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var recyclerAdapter: TaskRecyclerAdapter
+    private var itemListener: TaskRecyclerAdapter.TaskItemListener = object : TaskRecyclerAdapter.TaskItemListener {
+        override fun onTaskClick(task: Task) {
+            presenter.openTaskDetail(task)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +47,7 @@ class TaskListActivity : BaseActivity(), TaskListContract.View {
         setupFabContent(findViewById(R.id.fab_add_task))
 
         findViewById<RecyclerView>(R.id.task_list_recycler_view).apply {
-            recyclerAdapter = TaskRecyclerAdapter(context)
+            recyclerAdapter = TaskRecyclerAdapter(context, itemListener)
             this.layoutManager = LinearLayoutManager(context)
             this.adapter = recyclerAdapter
         }
@@ -65,6 +71,13 @@ class TaskListActivity : BaseActivity(), TaskListContract.View {
 
     override fun showTaskList(taskList: List<Task>) {
         recyclerAdapter.updateItemList(taskList)
+    }
+
+    override fun showTaskDetailPage(task: Task) {
+        val intent = Intent(this, TaskDetailActivity::class.java).apply {
+            putExtra(TaskDetailActivity.EXTRA_TASK_ID, taskId)
+        }
+        startActivity(intent)
     }
 
     private fun setupDrawerContent(navigationView: NavigationView) {

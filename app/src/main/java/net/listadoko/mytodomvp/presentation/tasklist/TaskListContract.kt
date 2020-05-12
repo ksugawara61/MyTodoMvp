@@ -8,9 +8,13 @@ interface TaskListContract {
 
     interface View : BaseView<Presenter> {
         fun showTaskList(taskList: List<Task>)
+
+        fun showTaskDetailPage(task: Task)
     }
 
     interface Presenter : BasePresenter {
         fun loadTaskList(forceUpdate: Boolean)
+
+        fun openTaskDetail(task: Task)
     }
 }

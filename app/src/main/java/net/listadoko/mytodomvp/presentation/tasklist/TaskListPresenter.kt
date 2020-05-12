@@ -23,4 +23,8 @@ class TaskListPresenter(
             }
         })
     }
+
+    override fun openTaskDetail(task: Task) {
+        view.showTaskDetailPage(task)
+    }
 }

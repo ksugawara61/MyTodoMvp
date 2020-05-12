@@ -9,7 +9,13 @@ import net.listadoko.mytodomvp.R
 import net.listadoko.mytodomvp.model.local.Task
 import net.listadoko.mytodomvp.view.BaseRecyclerAdapter
 
-class TaskRecyclerAdapter(context: Context) : BaseRecyclerAdapter<Task>() {
+class TaskRecyclerAdapter(context: Context, val listener: TaskItemListener) :
+    BaseRecyclerAdapter<Task>() {
+
+    interface TaskItemListener {
+        // TODO: checkbox event
+        fun onTaskClick(task: Task)
+    }
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -31,7 +37,7 @@ class TaskRecyclerAdapter(context: Context) : BaseRecyclerAdapter<Task>() {
             }
 
             holder.view.setOnClickListener {
-                // TODO: implement to open task detail page.
+                listener.onTaskClick(item)
             }
         }
     }
