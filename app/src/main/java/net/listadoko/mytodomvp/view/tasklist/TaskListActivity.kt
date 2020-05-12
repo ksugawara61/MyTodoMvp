@@ -75,7 +75,7 @@ class TaskListActivity : BaseActivity(), TaskListContract.View {
 
     override fun showTaskDetailPage(task: Task) {
         val intent = Intent(this, TaskDetailActivity::class.java).apply {
-            putExtra(TaskDetailActivity.EXTRA_TASK_ID, taskId)
+            putExtra(TaskDetailActivity.EXTRA_TASK_ID, task.id)
         }
         startActivity(intent)
     }

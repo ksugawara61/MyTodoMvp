@@ -12,4 +12,7 @@ interface TaskDao {
 
     @Query("SELECT * FROM tasks")
     fun findAll(): List<Task>
+
+    @Query("SELECT * FROM tasks WHERE id = :taskId")
+    fun find(taskId: String): Task
 }

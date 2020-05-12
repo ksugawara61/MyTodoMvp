@@ -10,6 +10,10 @@ class TaskLocalDataSource(val appExecutors: AppExecutors, val db: AppDatabase) {
         fun onTaskListLoaded(taskList: List<Task>)
     }
 
+    interface GetTaskCallback {
+        fun onTaskLoaded(task: Task)
+    }
+
     fun insert(task: Task) {
         db.taskDao().insert(task)
     }
@@ -27,4 +31,12 @@ class TaskLocalDataSource(val appExecutors: AppExecutors, val db: AppDatabase) {
         }
     }
 
+    fun getTask(taskId: String, callback: GetTaskCallback) {
+        appExecutors.diskIO.execute {
+            val task = db.taskDao().find(taskId)
+            appExecutors.mainThread.execute {
+                callback.onTaskLoaded(task)
+            }
+        }
+    }
 }
