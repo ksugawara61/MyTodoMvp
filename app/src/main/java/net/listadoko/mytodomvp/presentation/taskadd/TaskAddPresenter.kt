@@ -32,7 +32,12 @@ class TaskAddPresenter(
     }
 
     private fun createTask(title: String, description: String) {
-        // TODO: create task
+        val task = Task(title = title, description = description)
+        source.saveTask(task, object : TaskLocalDataSource.SaveTaskCallback {
+            override fun onSaveTaskLoaded(isSave: Boolean) {
+                view.showSaveResult(isSave)
+            }
+        })
     }
 
     private fun updateTask(title: String, description: String) {

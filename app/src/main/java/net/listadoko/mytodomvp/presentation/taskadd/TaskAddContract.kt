@@ -8,6 +8,8 @@ interface TaskAddContract {
 
     interface View : BaseView<Presenter> {
         fun showTask(task: Task)
+
+        fun showSaveResult(isSave: Boolean)
     }
 
     interface Presenter : BasePresenter {

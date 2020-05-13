@@ -1,8 +1,10 @@
 package net.listadoko.mytodomvp.view.taskadd
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import net.listadoko.mytodomvp.R
 import net.listadoko.mytodomvp.model.local.Task
 import net.listadoko.mytodomvp.presentation.taskadd.TaskAddContract
@@ -22,6 +24,8 @@ class TaskAddActivity : BaseActivity(), TaskAddContract.View {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
+
+        setupFabContent(findViewById(R.id.fab_save_task))
 
         val taskId = intent.getStringExtra(EXTRA_TASK_ID)
         presenter = TaskAddPresenter(
@@ -43,6 +47,20 @@ class TaskAddActivity : BaseActivity(), TaskAddContract.View {
         }
         with(findViewById<TextView>(R.id.task_add_description)) {
             text = task.description
+        }
+    }
+
+    override fun showSaveResult(isSave: Boolean) {
+        val text = if (isSave) "保存しました" else "保存できませんでした"
+        val toast = Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT)
+        toast.show()
+    }
+
+    private fun setupFabContent(fab: FloatingActionButton) {
+        fab.setOnClickListener {
+            val title = findViewById<TextView>(R.id.task_add_title).text.toString()
+            val description = findViewById<TextView>(R.id.task_add_description).text.toString()
+            presenter.saveTask(title, description)
         }
     }
 

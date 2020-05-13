@@ -14,6 +14,10 @@ class TaskLocalDataSource(val appExecutors: AppExecutors, val db: AppDatabase) {
         fun onTaskLoaded(task: Task)
     }
 
+    interface SaveTaskCallback {
+        fun onSaveTaskLoaded(isSave: Boolean)
+    }
+
     fun insert(task: Task) {
         db.taskDao().insert(task)
     }
@@ -36,6 +40,15 @@ class TaskLocalDataSource(val appExecutors: AppExecutors, val db: AppDatabase) {
             val task = db.taskDao().find(taskId)
             appExecutors.mainThread.execute {
                 callback.onTaskLoaded(task)
+            }
+        }
+    }
+
+    fun saveTask(task: Task, callback: SaveTaskCallback) {
+        appExecutors.diskIO.execute {
+            val isSave = db.taskDao().insert(task) >= 0 // NOTE: 0以上は登録成功
+            appExecutors.mainThread.execute {
+                callback.onSaveTaskLoaded(isSave)
             }
         }
     }
