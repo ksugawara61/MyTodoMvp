@@ -17,6 +17,8 @@ class TaskDetailActivity : BaseActivity(), TaskDetailContract.View {
 
     override lateinit var presenter: TaskDetailContract.Presenter
 
+    lateinit var taskId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_detail)
@@ -28,7 +30,7 @@ class TaskDetailActivity : BaseActivity(), TaskDetailContract.View {
 
         setupFabContent(findViewById(R.id.fab_add_task))
 
-        val taskId = intent.getStringExtra(EXTRA_TASK_ID)
+        taskId = intent.getStringExtra(EXTRA_TASK_ID)
         presenter = TaskDetailPresenter(
             taskId,
             Injection.provideTaskListRepository(applicationContext),
@@ -56,7 +58,9 @@ class TaskDetailActivity : BaseActivity(), TaskDetailContract.View {
 
     private fun setupFabContent(fab: FloatingActionButton) {
         fab.setOnClickListener {
-            val intent = Intent(this, TaskAddActivity::class.java)
+            val intent = Intent(this, TaskAddActivity::class.java).apply {
+                putExtra(TaskAddActivity.EXTRA_TASK_ID, taskId)
+            }
             startActivity(intent)
         }
     }
