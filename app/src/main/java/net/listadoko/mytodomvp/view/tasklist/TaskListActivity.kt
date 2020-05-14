@@ -3,6 +3,7 @@ package net.listadoko.mytodomvp.view.tasklist
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,6 +59,10 @@ class TaskListActivity : BaseActivity(), TaskListContract.View {
                 Injection.provideTaskListRepository(applicationContext),
                 this
             )
+    }
+
+    override fun onResume() {
+        super.onResume()
         presenter.start()
     }
 
@@ -67,6 +72,11 @@ class TaskListActivity : BaseActivity(), TaskListContract.View {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        presenter.result(requestCode, resultCode)
     }
 
     override fun showTaskList(taskList: List<Task>) {
@@ -80,6 +90,11 @@ class TaskListActivity : BaseActivity(), TaskListContract.View {
         startActivity(intent)
     }
 
+    override fun showSuccessfullySavedMessage() {
+        val toast = Toast.makeText(applicationContext, "TODOを追加しました", Toast.LENGTH_SHORT)
+        toast.show()
+    }
+
     private fun setupDrawerContent(navigationView: NavigationView) {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             drawerLayout.closeDrawers()
@@ -90,7 +105,7 @@ class TaskListActivity : BaseActivity(), TaskListContract.View {
     private fun setupFabContent(fab: FloatingActionButton) {
         fab.setOnClickListener {
             val intent = Intent(this, TaskAddActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, TaskAddActivity.REQUEST_ADD_TASK)
         }
     }
 }

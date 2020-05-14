@@ -1,7 +1,9 @@
 package net.listadoko.mytodomvp.presentation.tasklist
 
+import android.app.Activity
 import net.listadoko.mytodomvp.model.TaskLocalDataSource
 import net.listadoko.mytodomvp.model.local.Task
+import net.listadoko.mytodomvp.view.taskadd.TaskAddActivity
 
 class TaskListPresenter(
     private val source: TaskLocalDataSource,
@@ -26,5 +28,11 @@ class TaskListPresenter(
 
     override fun openTaskDetail(task: Task) {
         view.showTaskDetailPage(task)
+    }
+
+    override fun result(requestCode: Int, resultCode: Int) {
+        if (requestCode == TaskAddActivity.REQUEST_ADD_TASK && resultCode == Activity.RESULT_OK) {
+            view.showSuccessfullySavedMessage()
+        }
     }
 }

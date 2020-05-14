@@ -35,7 +35,11 @@ class TaskAddPresenter(
         val task = Task(title = title, description = description)
         source.saveTask(task, object : TaskLocalDataSource.SaveTaskCallback {
             override fun onSaveTaskLoaded(isSave: Boolean) {
-                view.showSaveResult(isSave)
+                if (isSave) {
+                    view.showTaskList()
+                } else {
+                    // TODO: show error message
+                }
             }
         })
     }

@@ -10,11 +10,15 @@ interface TaskListContract {
         fun showTaskList(taskList: List<Task>)
 
         fun showTaskDetailPage(task: Task)
+
+        fun showSuccessfullySavedMessage()
     }
 
     interface Presenter : BasePresenter {
         fun loadTaskList(forceUpdate: Boolean)
 
         fun openTaskDetail(task: Task)
+
+        fun result(requestCode: Int, resultCode: Int)
     }
 }

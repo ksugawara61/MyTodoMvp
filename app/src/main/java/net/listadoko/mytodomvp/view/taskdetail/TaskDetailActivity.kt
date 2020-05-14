@@ -36,6 +36,10 @@ class TaskDetailActivity : BaseActivity(), TaskDetailContract.View {
             Injection.provideTaskListRepository(applicationContext),
             this
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
         presenter.start()
     }
 

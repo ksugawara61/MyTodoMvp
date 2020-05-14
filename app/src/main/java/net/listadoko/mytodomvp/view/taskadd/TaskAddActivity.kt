@@ -1,9 +1,8 @@
 package net.listadoko.mytodomvp.view.taskadd
 
-import android.content.Intent
+import android.app.Activity
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import net.listadoko.mytodomvp.R
 import net.listadoko.mytodomvp.model.local.Task
@@ -50,10 +49,9 @@ class TaskAddActivity : BaseActivity(), TaskAddContract.View {
         }
     }
 
-    override fun showSaveResult(isSave: Boolean) {
-        val text = if (isSave) "保存しました" else "保存できませんでした"
-        val toast = Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT)
-        toast.show()
+    override fun showTaskList() {
+        setResult(Activity.RESULT_OK)
+        finish()
     }
 
     private fun setupFabContent(fab: FloatingActionButton) {
@@ -66,5 +64,6 @@ class TaskAddActivity : BaseActivity(), TaskAddContract.View {
 
     companion object {
         const val EXTRA_TASK_ID = "TASK_ID"
+        const val REQUEST_ADD_TASK = 1
     }
 }
