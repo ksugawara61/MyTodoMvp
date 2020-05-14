@@ -2,12 +2,13 @@ package net.listadoko.mytodomvp.model.local
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import net.listadoko.mytodomvp.model.local.Task
 
 @Dao
 interface TaskDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(task: Task): Long
 
     @Query("SELECT * FROM tasks")

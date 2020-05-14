@@ -1,5 +1,6 @@
 package net.listadoko.mytodomvp.view.taskdetail
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.CheckBox
@@ -48,6 +49,14 @@ class TaskDetailActivity : BaseActivity(), TaskDetailContract.View {
         return true
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_EDIT_TASK && resultCode == Activity.RESULT_OK) {
+            setResult(Activity.RESULT_OK)
+            finish()
+        }
+    }
+
     override fun showTask(task: Task) {
         with(findViewById<CheckBox>(R.id.task_detail_complete)) {
             isChecked = task.isCompleted
@@ -65,11 +74,13 @@ class TaskDetailActivity : BaseActivity(), TaskDetailContract.View {
             val intent = Intent(this, TaskAddActivity::class.java).apply {
                 putExtra(TaskAddActivity.EXTRA_TASK_ID, taskId)
             }
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_EDIT_TASK)
         }
     }
 
     companion object {
         const val EXTRA_TASK_ID = "TASK_ID"
+
+        const val REQUEST_EDIT_TASK = 1
     }
 }

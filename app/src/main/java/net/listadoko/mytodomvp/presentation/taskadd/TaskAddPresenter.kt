@@ -27,7 +27,7 @@ class TaskAddPresenter(
         if (taskId == null) {
             createTask(title, description)
         } else {
-            updateTask(title, description)
+            updateTask(title, description, taskId)
         }
     }
 
@@ -44,7 +44,16 @@ class TaskAddPresenter(
         })
     }
 
-    private fun updateTask(title: String, description: String) {
-        // TODO update task
+    private fun updateTask(title: String, description: String, taskId: String) {
+        val task = Task(title = title, description = description, id = taskId)
+        source.saveTask(task, object : TaskLocalDataSource.SaveTaskCallback {
+            override fun onSaveTaskLoaded(isSave: Boolean) {
+                if (isSave) {
+                    view.showTaskList()
+                } else {
+                    // TODO: show error message
+                }
+            }
+        })
     }
 }
