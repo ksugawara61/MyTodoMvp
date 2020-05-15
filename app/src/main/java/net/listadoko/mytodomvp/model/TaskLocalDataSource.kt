@@ -53,6 +53,15 @@ class TaskLocalDataSource(val appExecutors: AppExecutors, val db: AppDatabase) {
         }
     }
 
+    fun updateTask(task: Task, callback: SaveTaskCallback) {
+        appExecutors.diskIO.execute {
+            val isSave = db.taskDao().update(task.id, task.title, task.description) > 0 // NOTE: 0より大きい場合更新成功
+            appExecutors.mainThread.execute {
+                callback.onSaveTaskLoaded(isSave)
+            }
+        }
+    }
+
     fun completeTask(taskId: String) {
         appExecutors.diskIO.execute { db.taskDao().updateCompleted(taskId, true) }
     }
