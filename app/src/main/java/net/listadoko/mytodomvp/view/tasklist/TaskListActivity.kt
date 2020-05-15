@@ -29,6 +29,14 @@ class TaskListActivity : BaseActivity(), TaskListContract.View {
         override fun onTaskClick(task: Task) {
             presenter.openTaskDetail(task)
         }
+
+        override fun onCompleteTaskClick(task: Task) {
+            presenter.completeTask(task)
+        }
+
+        override fun onActivateTaskClick(task: Task) {
+            presenter.activateTask(task)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

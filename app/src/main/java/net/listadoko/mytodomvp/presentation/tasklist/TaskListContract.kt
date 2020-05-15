@@ -19,6 +19,10 @@ interface TaskListContract {
 
         fun openTaskDetail(task: Task)
 
+        fun completeTask(task: Task)
+
+        fun activateTask(task: Task)
+
         fun result(requestCode: Int, resultCode: Int)
     }
 }

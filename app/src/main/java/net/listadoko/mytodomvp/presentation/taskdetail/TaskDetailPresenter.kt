@@ -20,4 +20,12 @@ class TaskDetailPresenter(
             }
         })
     }
+
+    override fun completeTask(task: Task) {
+        source.completeTask(task.id)
+    }
+
+    override fun activateTask(task: Task) {
+        source.activateTask(task.id)
+    }
 }

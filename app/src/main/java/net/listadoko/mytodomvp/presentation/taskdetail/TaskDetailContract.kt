@@ -10,5 +10,9 @@ interface TaskDetailContract {
         fun showTask(task: Task)
     }
 
-    interface Presenter : BasePresenter {}
+    interface Presenter : BasePresenter {
+        fun completeTask(task: Task)
+
+        fun activateTask(task: Task)
+    }
 }

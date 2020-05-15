@@ -52,4 +52,12 @@ class TaskLocalDataSource(val appExecutors: AppExecutors, val db: AppDatabase) {
             }
         }
     }
+
+    fun completeTask(taskId: String) {
+        appExecutors.diskIO.execute { db.taskDao().updateCompleted(taskId, true) }
+    }
+
+    fun activateTask(taskId: String) {
+        appExecutors.diskIO.execute { db.taskDao().updateCompleted(taskId, false) }
+    }
 }

@@ -35,4 +35,12 @@ class TaskListPresenter(
             view.showSuccessfullySavedMessage()
         }
     }
+
+    override fun completeTask(task: Task) {
+        source.completeTask(task.id)
+    }
+
+    override fun activateTask(task: Task) {
+        source.activateTask(task.id)
+    }
 }

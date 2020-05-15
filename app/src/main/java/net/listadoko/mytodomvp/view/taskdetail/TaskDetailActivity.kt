@@ -60,6 +60,13 @@ class TaskDetailActivity : BaseActivity(), TaskDetailContract.View {
     override fun showTask(task: Task) {
         with(findViewById<CheckBox>(R.id.task_detail_complete)) {
             isChecked = task.isCompleted
+            setOnClickListener {
+                if (task.isCompleted) {
+                    presenter.activateTask(task)
+                } else {
+                    presenter.completeTask(task)
+                }
+            }
         }
         with(findViewById<TextView>(R.id.task_detail_title)) {
             text = task.title

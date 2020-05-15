@@ -9,12 +9,15 @@ import net.listadoko.mytodomvp.R
 import net.listadoko.mytodomvp.model.local.Task
 import net.listadoko.mytodomvp.view.BaseRecyclerAdapter
 
-class TaskRecyclerAdapter(context: Context, val listener: TaskItemListener) :
+class TaskRecyclerAdapter(context: Context, private val listener: TaskItemListener) :
     BaseRecyclerAdapter<Task>() {
 
     interface TaskItemListener {
-        // TODO: checkbox event
         fun onTaskClick(task: Task)
+
+        fun onCompleteTaskClick(task: Task)
+
+        fun onActivateTaskClick(task: Task)
     }
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -28,8 +31,14 @@ class TaskRecyclerAdapter(context: Context, val listener: TaskItemListener) :
 
         if (item != null) {
             with(holder.view.findViewById<CheckBox>(R.id.task_checkbox)) {
-                // TODO check item event
                 isChecked = item.isCompleted
+                setOnClickListener {
+                    if (item.isCompleted) {
+                        listener.onActivateTaskClick(item)
+                    } else {
+                        listener.onCompleteTaskClick(item)
+                    }
+                }
             }
 
             with(holder.view.findViewById<TextView>(R.id.task_title)) {
