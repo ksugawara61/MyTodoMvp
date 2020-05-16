@@ -63,6 +63,7 @@ class TaskListActivityTest {
             .editDescription("sample detail description")
             .saveTask()
             .goToTaskDetail("sample detail title")
+            .assertCompleted(false)
             .clickTaskComplete()
             .assertTask("sample detail title", "sample detail description", true)
     }
@@ -77,6 +78,8 @@ class TaskListActivityTest {
             .saveTask()
             .goToTaskDetail("sample title")
             .goToTaskAdd()
+            .assertTask("sample title", "sample description")
+            .assertTitle("sample title")
             .editTitle("sample edit title")
             .saveTask()
             .assertTask("sample edit title")

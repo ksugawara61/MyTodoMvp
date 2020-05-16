@@ -2,12 +2,14 @@ package net.listadoko.mytodomvp.view.page
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.test.espresso.matcher.ViewMatchers.isChecked
+import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 
 abstract class BasePage {
-    fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {
+    protected fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {
                 description.appendText("Child at position $position in parent ")
@@ -21,4 +23,9 @@ abstract class BasePage {
             }
         }
     }
+
+    protected fun isChecked(checked: Boolean): Matcher<View> {
+        return if (checked) isChecked() else isNotChecked()
+    }
+
 }

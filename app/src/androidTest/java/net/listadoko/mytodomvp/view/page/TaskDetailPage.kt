@@ -21,21 +21,31 @@ class TaskDetailPage : BasePage() {
         return TaskAddPage()
     }
 
-    fun assertTask(title: String, description: String, isCompleted: Boolean): TaskDetailPage {
-        val titleTextView = onView(allOf(withId(R.id.task_detail_title), isDisplayed()))
-        val descriptionTextView = onView(allOf(withId(R.id.task_detail_description), isDisplayed()))
-        val checkBox = onView(allOf(withId(R.id.task_detail_complete), isDisplayed()))
-
-        titleTextView.check(matches(withText(Matchers.equalTo(title))))
-        descriptionTextView.check(matches(withText(Matchers.equalTo(description))))
-        val checked = if (isCompleted) isChecked() else isNotChecked()
-        checkBox.check(matches(checked))
-        return this
-    }
-
     fun clickTaskComplete(): TaskDetailPage {
         val checkBox = onView(allOf(withId(R.id.task_detail_complete), isDisplayed()))
         checkBox.perform(click())
+        return this
+    }
+
+    fun assertTask(title: String, description: String, isCompleted: Boolean): TaskDetailPage {
+        return assertTitle(title).assertDescription(description).assertCompleted(isCompleted)
+    }
+
+    fun assertTitle(title: String): TaskDetailPage {
+        val textView = onView(allOf(withId(R.id.task_detail_title), isDisplayed()))
+        textView.check(matches(withText(Matchers.equalTo(title))))
+        return this
+    }
+
+    fun assertDescription(description: String): TaskDetailPage {
+        val textView = onView(allOf(withId(R.id.task_detail_description), isDisplayed()))
+        textView.check(matches(withText(Matchers.equalTo(description))))
+        return this
+    }
+
+    fun assertCompleted(isCompleted: Boolean): TaskDetailPage {
+        val checkBox = onView(allOf(withId(R.id.task_detail_complete), isDisplayed()))
+        checkBox.check(matches(isChecked(isCompleted)))
         return this
     }
 }
