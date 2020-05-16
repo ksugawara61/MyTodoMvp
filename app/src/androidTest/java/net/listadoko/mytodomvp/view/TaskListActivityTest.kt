@@ -64,7 +64,22 @@ class TaskListActivityTest {
             .saveTask()
             .goToTaskDetail("sample detail title")
             .clickTaskComplete()
-            .assertTask("sample detail title")
+            .assertTask("sample detail title", "sample detail description", true)
+    }
+
+    @Test
+    fun editTaskTest() {
+        TaskListPage()
+            .assertTitle("All TO-DOs")
+            .goToTaskAdd()
+            .editTitle("sample title")
+            .editDescription("sample description")
+            .saveTask()
+            .goToTaskDetail("sample title")
+            .goToTaskAdd()
+            .editTitle("sample edit title")
+            .saveTask()
+            .assertTask("sample edit title")
     }
 
     @Test
