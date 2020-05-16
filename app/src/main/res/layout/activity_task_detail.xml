@@ -49,6 +49,7 @@
                     app:layout_constraintStart_toEndOf="@id/task_detail_complete"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/task_detail_complete"
                     />
 
                 <TextView

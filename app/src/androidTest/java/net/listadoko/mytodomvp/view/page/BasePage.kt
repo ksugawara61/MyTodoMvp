@@ -6,7 +6,7 @@ import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 
-object PageUtil {
+abstract class BasePage {
     fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {
